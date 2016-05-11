@@ -34,33 +34,38 @@ public class Rule {
         return instance;
     }
 
-    public List<String> getPracticeList(String chapter){
-        List<String> practiceList = new ArrayList<String>();
+    public List<Expression> getPracticeList(String chapter){
+        List<Expression> practiceList = new ArrayList<Expression>();
         RuleModel rule = null;
         for(Map.Entry<String, RuleModel> entry : ruleMap.entrySet()){
             if(entry.getKey().equals(chapter)){
                 rule = entry.getValue();
             }
         }
+        if (rule == null)
+            return null;
         for(int i = rule.getBegin(); i <= rule.getEnd(); i++){
             Random random = new Random();
+            Expression expression ;
             if(rule.getBegin() == rule.getEnd()){
                 for(int j = 1; j <= rule.getLimit()-i; j++){
-                    practiceList.add(String.valueOf(i)+"+"+String.valueOf(j)+"="+String.valueOf(i+j));
+                    expression = new Expression(String.valueOf(i)+"+"+String.valueOf(j)+"=",i+j);
+                    practiceList.add(expression);
+//                    practiceList.add(String.valueOf(i)+"+"+String.valueOf(j)+"="+String.valueOf(i+j));
                 }
                 for(int j = rule.getLimit()-i; j < 20; j++){
                     int randNum = random.nextInt(rule.getLimit()-rule.getBegin())+1;
-                    practiceList.add(String.valueOf(i)+"+"+String.valueOf(randNum)+"="+String.valueOf(i+randNum));
+                    expression = new Expression(String.valueOf(i)+"+"+String.valueOf(randNum)+"=",i+randNum);
+                    practiceList.add(expression);
                 }
             }else{
                 System.out.println("limit="+Math.ceil(20/(rule.getEnd()-rule.getBegin()+1)));
                 for(int j = 1; j <= Math.ceil(20/(rule.getEnd()-rule.getBegin()+1)); j++){
                     int randNum = random.nextInt(rule.getLimit()-i)+1;
-                    practiceList.add(String.valueOf(i)+"+"+String.valueOf(randNum)+"="+String.valueOf(i+randNum));
+                    expression = new Expression(String.valueOf(i)+"+"+String.valueOf(randNum)+"=",i+randNum);
+                    practiceList.add(expression);
                 }
             }
-
-
 
         }
         return practiceList;

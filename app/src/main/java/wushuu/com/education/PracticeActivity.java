@@ -29,7 +29,7 @@ public class PracticeActivity extends Activity{
 
     private void initView() {
         btnContainer = (LinearLayout) findViewById(R.id.btn_container);
-        for(int i = 0; i < CHARPTER_NUM; i++){
+        for(int i = 1; i <= CHARPTER_NUM; i++){
             Button btn = new Button(getApplicationContext());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100,100);
             btn.setText(String.valueOf(i));
@@ -44,7 +44,7 @@ public class PracticeActivity extends Activity{
 
     private void setOnClickListener() {
         for(int i = 0; i < CHARPTER_NUM; i++){
-            final int finalI = i;
+            final int finalI = i+1;
             btnContainer.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
